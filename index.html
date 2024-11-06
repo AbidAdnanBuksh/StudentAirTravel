@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Air Travel Portal</title>
+    <!-- Link to Bootstrap CSS for styling and responsive design -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link to custom CSS file for additional styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Navigation bar using Bootstrap classes for responsiveness -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Domestic Air Travelling</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Navigation links for different sections of the website -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Offers</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">My Account</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
+            </ul>
+            <!-- Search bar positioned on the right side of the navigation bar -->
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search for flights" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Main content section with welcome message and form -->
+    <section class="container mt-4">
+        <h1>Welcome to the Student Discounted Domestic Air Travelling</h1>
+
+        <!-- Form for password and confirm password fields -->
+        <form>
+            <input type="password" id="password" placeholder="Password" class="form-control mb-2">
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" class="form-control mb-2">
+            <div id="passwordMessage" class="text-danger mb-2" style="display: none;"></div>
+
+            <!-- Dropdown menu for selecting between roles -->
+            <select id="userType" class="form-control mb-2">
+                <option value="">Select User Type</option>
+                <option value="student">Student</option>
+                <option value="travelAgent">Travel Agent</option>
+                <option value="salesTeam">Sales Team</option>
+                <option value="moderator">Moderator</option>
+                <option value="administrator">Administrator</option>
+            </select>
+
+            <button type="button" id="submitForm" class="btn btn-primary">Submit</button>
+        </form>
+
+        <!-- Placeholder sections that will appear based on the user's selection -->
+        <div id="studentSection" class="mt-4" style="display: none;">
+            <h2>Student Offers</h2>
+            <p>This page will display flight offers for students.</p>
+            <p>It will also provide options for profile settings, checking booking history, and viewing saved offers.</p>
+        </div>
+
+        <div id="travelAgentSection" class="mt-4" style="display: none;">
+            <h2>Travel Agent Dashboard</h2>
+            <p>This page will allow travel agents to add reduced airline deals and promotions on their website.</p>
+            <form>
+                <textarea id="adDetails" class="form-control mb-2" placeholder="Enter details of the flight offer..."></textarea>
+                <button type="button" class="btn btn-primary">Submit Deal</button>
+            </form>
+        </div>
+
+        <div id="salesTeamSection" class="mt-4" style="display: none;">
+            <h2>Sales Team Dashboard</h2>
+            <p>Sales team members can create and submit advertisements for approval here.</p>
+        </div>
+
+        <div id="moderatorSection" class="mt-4" style="display: none;">
+            <h2>Moderator Dashboard</h2>
+            <p>Moderators can approve or reject advertisements before they are published.</p>
+        </div>
+
+        <div id="adminSection" class="mt-4" style="display: none;">
+            <h2>Administrator Dashboard</h2>
+            <p>Administrators manage the platform, user accounts and generate reports here.</p>
+        </div>
+    </section>
+
+    <!-- Include jQuery and Bootstrap JavaScript for interactivity and responsive elements -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- JavaScript for showing/hiding sections based on user type selection -->
+    <script>
+        $(document).ready(function() {
+            $('#userType').change(function() {
+                const selectedUser = $(this).val();
+                
+                // Hide all sections initially
+                $('#studentSection, #travelAgentSection, #salesTeamSection, #moderatorSection, #adminSection').hide();
+
+                // Show the selected section
+                if (selectedUser === 'student') {
+                    $('#studentSection').show();
+                } else if (selectedUser === 'travelAgent') {
+                    $('#travelAgentSection').show();
+                } else if (selectedUser === 'salesTeam') {
+                    $('#salesTeamSection').show();
+                } else if (selectedUser === 'moderator') {
+                    $('#moderatorSection').show();
+                } else if (selectedUser === 'administrator') {
+                    $('#adminSection').show();
+                }
+            });
+
+            // Password validation
+            $('#submitForm').click(function() {
+                const password = $('#password').val();
+                const confirmPassword = $('#confirmPassword').val();
+                const message = $('#passwordMessage');
+
+                // Check if passwords match
+                if (password !== confirmPassword) {
+                    message.text('Passwords do not match. Please try again.').css('color', 'red').show();
+                } else {
+                    message.text('Passwords match.').css('color', 'green').show();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
